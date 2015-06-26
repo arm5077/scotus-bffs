@@ -1,0 +1,13 @@
+.case {
+	width: 20px;
+	height: 20px;
+	margin-right:2px;
+	margin-bottom:2px;
+	background-color: #C7DCE9;
+	display: block;
+	float:left;
+}
+
+	.case.selected {
+		background-color: #77B5E3;
+	}
