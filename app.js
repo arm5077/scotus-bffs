@@ -1,36 +1,59 @@
-app = angular.module("scotusApp", []);
+app = angular.module("scotusApp", ["dndLists"]);
 
 app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, $sce, $http){
-
+	
+	$scope.Math = Math;
+	$scope.hovered = "";
+	
+	
 	$http.get("data.json").success(function(data){
 		$scope.data = data;
 		$scope.majority = [
 			{
-				name: "JGRoberts"
+				name: "JGRoberts",
+				lean: "conservative",
+				formatted_name: "John G. Roberts"
+				
 			},
 			{
-				name: "AScalia"
+				name: "AScalia",
+				lean: "conservative",
+				formatted_name: "Antonin Scalia"
 			},
 			{
-				name: "AMKennedy"
+				name: "AMKennedy",
+				lean: "conservative",
+				formatted_name: "Anthony M. Kennedy"
 			},
 			{
-				name: "CThomas"
+				name: "CThomas",
+				lean: "conservative",
+				formatted_name: "Clarence Thomas"
 			},
 			{
-				name: "RBGinsburg"
+				name: "RBGinsburg",
+				lean: "liberal",
+				formatted_name: "Ruth Bader Ginsburg"
 			},
 			{
-				name: "SGBreyer"
+				name: "SGBreyer",
+				lean: "liberal",
+				formatted_name: "Stephen G. Breyer"
 			},
 			{
-				name: "SAAlito"
+				name: "SAAlito",
+				lean: "conservative",
+				formatted_name: "Samuel A. Alito, Jr."
 			},
 			{
-				name: "SSotomayor"
+				name: "SSotomayor",
+				lean: "liberal",
+				formatted_name: "Sonia Sotomayor"
 			},
 			{
-				name: "EKagan"
+				name: "EKagan",
+				lean: "liberal",
+				formatted_name: "Elena Kagan"
 			}
 		];
 		
@@ -38,15 +61,21 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 		
 		];
 		
+		/*
+		$scope.$watch('majority',function(){
+			$scope.$apply(function(){
+				$scope.select($scope.majority, $scope.dissent);
+				console.log("Yo");
+			});
+		});
+		*/
 		$scope.select($scope.majority, $scope.dissent);
-		
-		console.log($scope.data);
 		
 	});
 	
 	// Function to narrow down cases based on justice positions
 	$scope.select = function(majority, dissent){
-		
+		console.log("doing it");
 		positions = {};
 		
 		majority.forEach(function(majority){ positions[majority.name] = 'majority' });
@@ -73,9 +102,40 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 				return b.selected - a.selected;
 			})
 		);
+		
+		return $scope.data;
+	}
+	
+	$scope.wasSelected = function(datum){
+		return datum.selected == true
+	}
+	
+	$scope.setHover = function(court_case){
+		$scope.hovered = court_case.name;
+	}
+	
+	$scope.clearHover = function(){
+		$scope.hovered = "";
 	}
 	
 }]);
+
+app.directive("stickWithWidth", function() {
+	return {
+		link: function(scope, element, attr) {
+			scope.$watch("data", function(){
+				console.log(data);
+				if(scope.data != ""){
+					console.log(element[0].offsetWidth);
+					element[0].style.width = element[0].offsetWidth + "px";
+				}
+				
+			});
+			
+		}
+	};	
+
+})
 
 /*** Copyright 2013 Teun Duynstee Licensed under the Apache License, Version 2.0 ***/
 firstBy=function(){function n(n,t){if("function"!=typeof n){var r=n;n=function(n,t){return n[r]<t[r]?-1:n[r]>t[r]?1:0}}return-1===t?function(t,r){return-n(t,r)}:n}function t(t,u){return t=n(t,u),t.thenBy=r,t}function r(r,u){var f=this;return r=n(r,u),t(function(n,t){return f(n,t)||r(n,t)})}return t}();

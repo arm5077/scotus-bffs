@@ -11,7 +11,15 @@ fs.readFile("data.csv", {encoding: "utf-8"}, function(err, data){
 		// 
 		data.forEach(function(datum){
 			if( !cases[datum.caseId] )
-				cases[datum.caseId] = {justices: {}, majVotes: datum.majVotes, minVotes: datum.minVotes, date: datum.dateDecision, cite: datum.sctCite, name: datum.caseName};
+				cases[datum.caseId] = {
+					justices: {}, 
+					majVotes: datum.majVotes, 
+					minVotes: datum.minVotes, 
+					date: datum.dateDecision, 
+					cite: datum.sctCite,
+					docket: datum.docket, 
+					name: datum.caseName
+				};
 
 			
 			switch(datum.majority){
