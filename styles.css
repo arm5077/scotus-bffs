@@ -77,7 +77,9 @@ body {
 	margin: 0;
 	font-size: 10pt;
 	font-weight: 300;
-	-webkit-cursor: grab;
+	cursor: -webkit-grab; 
+	cursor:-moz-grab;
+	cursor: grab;
 	margin-right: 10px;
 	text-align: center;
 		
@@ -101,8 +103,10 @@ body {
 	background-color: #E87E83;
 }
 
-.justice.dndDragging {
-	-webkit-cursor: grabbing;
+.justices:active {
+	cursor: -webkit-grabbing; 
+	cursor:-moz-grabbing;
+	cursor: grabbing;
 }
 
 .justice.dndDraggingSource {
@@ -119,6 +123,11 @@ li.dndPlaceholder {
 	vertical-align: top;
 	margin-right:10px;
 
+}
+
+ul[dnd-list],
+ul[dnd-list] > li {
+	position: relative;
 }
 
 .citation {

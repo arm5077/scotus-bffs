@@ -2,6 +2,8 @@ app = angular.module("scotusApp", ["dndLists"]);
 
 app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, $sce, $http){
 	
+	document.onselectstart = function(){ return false; }
+	
 	$scope.Math = Math;
 	$scope.hovered = "";
 	

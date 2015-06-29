@@ -42,7 +42,7 @@
 
 	<div class="explainer">
 		<div ng-if="data.filter(wasSelected).length == 0">This combination has never happened before.</div>
-		<div ng-if="data.filter(wasSelected).length != 0 && data.filter(wasSelected).length != NaN">This combination has happened {{data.filter(wasSelected).length }} {{data.filter(wasSelected).length == 1 ? "time" : "times"}} ({{ Math.round(data.filter(wasSelected).length / data.length * 1000)/10}}% of total)</div>
+		<div ng-if="data.filter(wasSelected).length != 0 && data.filter(wasSelected).length != NaN">This combination has happened <strong>{{data.filter(wasSelected).length }} {{data.filter(wasSelected).length == 1 ? "time" : "times"}}</strong> ({{ Math.round(data.filter(wasSelected).length / data.length * 1000)/10}}% of total)</div>
 	</div>
 
 	<div class="cases">

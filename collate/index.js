@@ -39,14 +39,26 @@ fs.readFile("data.csv", {encoding: "utf-8"}, function(err, data){
 			cases[datum.caseId].justices[datum.justiceName] = majority_or_dissent;
 		});
 		
+		textExport = "";
+
 		for( this_case in cases ){
-			if( cases[this_case].minVotes != cases[this_case].majVotes )
+			if( cases[this_case].minVotes != cases[this_case].majVotes ){
 				output.push( cases[this_case] );
+				textExport += "\"" + cases[this_case].name + "\"," + cases[this_case].justices.JGRoberts + "," + cases[this_case].justices.AScalia + "," + cases[this_case].justices.AMKennedy + "," + cases[this_case].justices.CThomas + "," + cases[this_case].justices.RBGinsburg + "," + cases[this_case].justices.SGBreyer + "," + cases[this_case].justices.SAAlito + "," + cases[this_case].justices.SSotomayor + "," + cases[this_case].justices.EKagan + "\n";
+			}
+				
 		}
-		
+	
+	
 		fs.writeFile("../data.json", JSON.stringify(output), function(err){
 			if( err ) throw err;
+		});
+		
+		fs.writeFile("textExport.csv", textExport, function(err){
+			if( err ) throw err;
 		})
+
+		
 	});
 
 
