@@ -13,10 +13,10 @@
 	<div class="justices">
 		<div class="bucket">
 			<div class="label">Majority</div>
-			<ul class="majority" dnd-list="majority">
-				<li class="justice" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative' }" ng-repeat="justice in majority" 
+			<ul class="majority" dnd-list="majority" dnd-disable-if="draggable == false">
+				<li class="justice" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent' }" ng-repeat="justice in majority" 
 					dnd-draggable="justice"
-					dnd-moved="majority.splice($index, 1); select(majority,dissent)"
+					dnd-moved="majority.splice($index, 1); select(majority,dissent,recuse)"
 				>
 					<img ng-src="img/{{justice.name}}.png" />
 					{{justice.formatted_name}}
@@ -27,10 +27,10 @@
 
 		<div class="bucket" id="dissent">
 			<div class="label">Dissent</div>
-			<ul class ="dissent" dnd-list="dissent" dnd-disable-if="dissent.length >= 4">
-				<li class="justice" ng-repeat="justice in dissent" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative' }"
+			<ul class ="dissent" dnd-list="dissent" dnd-disable-if="dissent.length >= 4 || draggable == false">
+				<li class="justice" ng-repeat="justice in dissent" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent' }"
 					dnd-draggable="justice"
-					dnd-moved="dissent.splice($index, 1); select(majority,dissent)"
+					dnd-moved="dissent.splice($index, 1); select(majority,dissent,recuse)"
 				>
 					<img ng-src="img/{{justice.name}}.png" />
 					{{justice.formatted_name}}
@@ -38,18 +38,37 @@
 
 			</ul>
 		</div>
+		
+		<div class="bucket" id="recuse">
+			<div class="label">Recused</div>
+			<ul class ="recuse" dnd-list="recuse" dnd-disable-if="draggable == false">
+				<li class="justice" ng-repeat="justice in recuse" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent' }"
+					dnd-draggable="justice"
+					dnd-moved="recuse.splice($index, 1); select(majority,dissent,recuse)"
+				>
+					<img ng-src="img/{{justice.name}}.png" />
+					{{justice.formatted_name}}
+				</li>
+
+			</ul>
+		</div>
+		
 	</div>
 
 	<div class="explainer">
 		<div ng-if="data.filter(wasSelected).length == 0">This combination has never happened before.</div>
 		<div ng-if="data.filter(wasSelected).length != 0 && data.filter(wasSelected).length != NaN">This combination has happened <strong>{{data.filter(wasSelected).length }} {{data.filter(wasSelected).length == 1 ? "time" : "times"}}</strong> ({{ Math.round(data.filter(wasSelected).length / data.length * 1000)/10}}% of total)</div>
 	</div>
-
+	
 	<div class="cases">
-		<a class="case selected" ng-repeat="case in data | filter:{ selected:true }" ng-href="http://caselaw.findlaw.com/us-supreme-court/{{case.docket}}" ng-mouseover="setHover(case)" ng-mouseleave="clearHover()" target="blank"></a>
-		<a class="case" ng-repeat="case in data | filter:{ selected:false }" ng-href="http://caselaw.findlaw.com/us-supreme-court/{{case.docket}}" ng-mouseover="setHover(case)" ng-mouseleave="clearHover()" target="blank" ></a>
+		<div ng-repeat="case in data" class="case" ng-class="{selected: case.selected == true}">
+			<div class="year" ng-if="case.term != data[$index-1].term">{{case.term}}</div>
+			<a ng-href="http://caselaw.findlaw.com/us-supreme-court/{{case.docket}}" ng-mouseover="setHover(case)" ng-mouseleave="clearHover()" target="blank"></a>
+			
+		</div>
 		<div style="clear:both"></div>
 	</div>
+
 	<div class="citation">{{hovered}}</div>
 
 </body>

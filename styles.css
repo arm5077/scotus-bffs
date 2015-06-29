@@ -12,6 +12,24 @@ body {
 }
 
 .case {
+	float: left;
+}
+
+.case .year {
+  float: left;
+  font-size: 7pt;
+  line-height: 13px;
+  color: #999;
+  border-radius: 3px;
+  margin: 0px 2px 0px 0px;
+  height: 13px;
+  border: 1px solid #ccc;
+  cursor: default;
+	text-align: center;
+  width: 30px;
+}
+
+.case a {
 	width: 15px;
 	height: 15px;
 	margin-right:2px;
@@ -21,7 +39,7 @@ body {
 	float:left;
 }
 
-	.case.selected {
+	.case.selected a {
 		background-color: #77B5E3;
 	}
 
@@ -34,17 +52,16 @@ body {
 }
 	
 .bucket {
-	min-height: 100px;
 	min-width: 100px;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 	display:inline-block;
-	min-height: 150px
+	height: 150px
 }
 
 
-.bucket#dissent {
+.bucket#dissent, .bucket#recuse {
 	background-color: #eee;
 	padding: 0px 20px 10px;
 	text-align: center;
@@ -52,9 +69,15 @@ body {
 	margin-left: 20px;
 }
 
-.bucket#dissent.empty {
+.bucket#dissent.empty, .bucket#recuse.empty {
 	padding-bottom: 30px;
 }
+
+.bucket#recuse {
+	background-color: #fafafa;
+	color: #aaa;
+}
+
 
 .bucket .label {
 	font-weight: 600;
@@ -82,7 +105,7 @@ body {
 	cursor: grab;
 	margin-right: 10px;
 	text-align: center;
-		
+	margin-bottom: 10px;
 }
 
 	.justice:last-child {
@@ -102,6 +125,11 @@ body {
 .justice.conservative img {
 	background-color: #E87E83;
 }
+
+.justice.independent img {
+	background-color: #FCE888;
+}
+
 
 .justices:active {
 	cursor: -webkit-grabbing; 

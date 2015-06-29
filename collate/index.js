@@ -18,7 +18,8 @@ fs.readFile("data.csv", {encoding: "utf-8"}, function(err, data){
 					date: datum.dateDecision, 
 					cite: datum.sctCite,
 					docket: datum.docket, 
-					name: datum.caseName
+					name: datum.caseName,
+					term: datum.term 
 				};
 
 			
@@ -32,7 +33,7 @@ fs.readFile("data.csv", {encoding: "utf-8"}, function(err, data){
 				break;
 				
 				default: 
-					majority_or_dissent = "";
+					majority_or_dissent = "recuse";
 				break;
 			};
 			
