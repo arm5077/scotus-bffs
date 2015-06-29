@@ -13,8 +13,8 @@
 	<div class="justices">
 		<div class="bucket">
 			<div class="label">Majority</div>
-			<ul class="majority" dnd-list="majority" dnd-disable-if="draggable == false">
-				<li class="justice" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent' }" ng-repeat="justice in majority" 
+			<ul class="majority" dnd-list="majority" dnd-disable-if="disable == true">
+				<li class="justice" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent', 'disabled': disable == true }" ng-repeat="justice in majority" 
 					dnd-draggable="justice"
 					dnd-moved="majority.splice($index, 1); select(majority,dissent,recuse)"
 				>
@@ -27,8 +27,8 @@
 
 		<div class="bucket" id="dissent">
 			<div class="label">Dissent</div>
-			<ul class ="dissent" dnd-list="dissent" dnd-disable-if="dissent.length >= 4 || draggable == false">
-				<li class="justice" ng-repeat="justice in dissent" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent' }"
+			<ul class ="dissent" dnd-list="dissent" dnd-disable-if="dissent.length >= 4 || disable == true">
+				<li class="justice" ng-repeat="justice in dissent" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent', 'disabled': disable == true }"
 					dnd-draggable="justice"
 					dnd-moved="dissent.splice($index, 1); select(majority,dissent,recuse)"
 				>
@@ -41,8 +41,8 @@
 		
 		<div class="bucket" id="recuse">
 			<div class="label">Recused</div>
-			<ul class ="recuse" dnd-list="recuse" dnd-disable-if="draggable == false">
-				<li class="justice" ng-repeat="justice in recuse" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent' }"
+			<ul class ="recuse" dnd-list="recuse" dnd-disable-if="disable == true">
+				<li class="justice" ng-repeat="justice in recuse" ng-class="{liberal: justice.lean == 'liberal', conservative: justice.lean == 'conservative', independent: justice.lean == 'independent', 'disabled': disable == true }"
 					dnd-draggable="justice"
 					dnd-moved="recuse.splice($index, 1); select(majority,dissent,recuse)"
 				>

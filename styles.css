@@ -141,6 +141,18 @@ body {
 	display: none;
 }
 
+.justice.disabled.dndDraggingSource {
+	display: inline-block;
+}
+
+.justice.disabled {
+	cursor: default;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;
+}
+
 li.dndPlaceholder {
 	width: 72px;
 	height: 72px;
@@ -162,4 +174,15 @@ ul[dnd-list] > li {
 	margin-bottom: 10px;
 	font-weight: 400;
 	color: #aaa;
+}
+
+@media screen and (max-width: 1105px) {
+	.justice {
+		width: 50px;
+	}
+	
+	.bucket {
+		min-width: 75px;
+		height: 120px;
+	}
 }

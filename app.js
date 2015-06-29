@@ -7,44 +7,55 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 	$scope.Math = Math;
 	$scope.hovered = "";
 	$scope.years = ['2010','2011','2012','2013','2014']
-	$scope.draggable = (getParameterByName("disable") == true) ? false : true;
+	$scope.disable = (getParameterByName("disable") == 'true') ? true : false;
+	
+	console.log($scope.disable);
 	
 	$scope.justices = {
 		"AScalia": {
+			name: "AScalia",
 			lean: "conservative",
-			formatted_name: "Antonin Scalia"
+			formatted_name: "Scalia"
 		},
 		"CThomas": {
+			name: "CThomas",
 			lean: "conservative",
-			formatted_name: "Clarence Thomas"
+			formatted_name: "Thomas"
 		},
 		"JGRoberts": {
+			name: "JGRoberts",
 			lean: "conservative",
-			formatted_name: "John G. Roberts"
+			formatted_name: "Roberts"
 		},
 		"SAAlito": {
+			name: "SAAlito",
 			lean: "conservative",
-			formatted_name: "Samuel A. Alito, Jr."
+			formatted_name: "Alito"
 		},
 		"AMKennedy": {
+			name: "AMKennedy",
 			lean: "independent",
-			formatted_name: "Anthony M. Kennedy"
+			formatted_name: "Kennedy"
 		},
 		"EKagan": {
+			name: "EKagen",
 			lean: "liberal",
-			formatted_name: "Elena Kagan"
+			formatted_name: "Kagan"
 		},
 		"RBGinsburg": {
+			name: "RBGinsburg",
 			lean: "liberal",
-			formatted_name: "Ruth Bader Ginsburg"
+			formatted_name: "Ginsburg"
 		},
 		"SGBreyer": {
+			name: "SGBreyer",
 			lean: "liberal",
-			formatted_name: "Stephen G. Breyer"
+			formatted_name: "Breyer"
 		},
 		"SSotomayor": {
+			name: "SSotomayor",
 			lean: "liberal",
-			formatted_name: "Sonia Sotomayor"
+			formatted_name: "Sotomayor"
 		}
 	};
 	
@@ -56,53 +67,62 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 			{
 				name: "AScalia",
 				lean: "conservative",
-				formatted_name: "Antonin Scalia"
+				formatted_name: "Scalia"
 			},
 			{
 				name: "CThomas",
 				lean: "conservative",
-				formatted_name: "Clarence Thomas"
+				formatted_name: "Thomas"
 			},
 			{
 				name: "JGRoberts",
 				lean: "conservative",
-				formatted_name: "John G. Roberts"
+				formatted_name: "Roberts"
 				
 			},
 			{
 				name: "SAAlito",
 				lean: "conservative",
-				formatted_name: "Samuel A. Alito, Jr."
+				formatted_name: "Alito"
 			},			
 			{
 				name: "AMKennedy",
 				lean: "independent",
-				formatted_name: "Anthony M. Kennedy"
+				formatted_name: "Kennedy"
 			},
 			{
 				name: "EKagan",
 				lean: "liberal",
-				formatted_name: "Elena Kagan"
+				formatted_name: "Kagan"
 			},
 			{
 				name: "RBGinsburg",
 				lean: "liberal",
-				formatted_name: "Ruth Bader Ginsburg"
+				formatted_name: "Ginsburg"
 			},
 			{
 				name: "SGBreyer",
 				lean: "liberal",
-				formatted_name: "Stephen G. Breyer"
+				formatted_name: "Breyer"
 			},
 			{
 				name: "SSotomayor",
 				lean: "liberal",
-				formatted_name: "Sonia Sotomayor"
+				formatted_name: "Sotomayor"
 			}
 		];
 		
 		$scope.dissent = [];
 		$scope.recuse = [];
+		
+		// Check URL for presets
+		for( name in $scope.justices ){
+			if( getParameterByName(name) ){
+				console.log($scope.majority.map(function(d){ return d.name }).indexOf(name));
+				$scope.majority.splice( $scope.majority.map(function(d){ return d.name }).indexOf(name),1)
+				$scope[getParameterByName(name)].push($scope.justices[name]);
+			}
+		}
 		
 		$scope.select($scope.majority, $scope.dissent, $scope.recuse);
 		
@@ -150,32 +170,35 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 	$scope.setHover = function(court_case){
 		$scope.hovered = court_case.name;
 		
-		$scope.majority.length = 0;
-		$scope.dissent.length = 0;
-		$scope.recuse.length = 0;
+		if($scope.disable != true){
+			$scope.majority.length = 0;
+			$scope.dissent.length = 0;
+			$scope.recuse.length = 0;
 				
-		for(name in court_case.justices){
-			$scope[court_case.justices[name]].push({
-				name: name,
-				lean: $scope.justices[name].lean,
-				formatted_name: $scope.justices[name].formatted_name,
-			});
-		}
-	
-		$scope.sortPortraits();
-		
+			for(name in court_case.justices){
+				$scope[court_case.justices[name]].push({
+					name: name,
+					lean: $scope.justices[name].lean,
+					formatted_name: $scope.justices[name].formatted_name,
+				});
+			}
+			$scope.sortPortraits();
+		}		
 	}
 	
 	$scope.clearHover = function(){
 		$scope.hovered = "";
 		
+		if($scope.disable != true){
 			$scope.majority.length = 0;
 			$scope.dissent.length = 0;
 			$scope.recuse.length = 0;
+
+			$scope.majority = $scope.backup.majority.slice(0);
+			$scope.dissent = $scope.backup.dissent.slice(0);
+			$scope.recuse = $scope.backup.recuse.slice(0);	
+		}
 		
-		$scope.majority = $scope.backup.majority.slice(0);
-		$scope.dissent = $scope.backup.dissent.slice(0);
-		$scope.recuse = $scope.backup.recuse.slice(0);
 	}
 	
 	$scope.sortPortraits = function(){
