@@ -34,11 +34,11 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 		},
 		"AMKennedy": {
 			name: "AMKennedy",
-			lean: "independent",
+			lean: "conservative",
 			formatted_name: "Kennedy"
 		},
 		"EKagan": {
-			name: "EKagen",
+			name: "EKagan",
 			lean: "liberal",
 			formatted_name: "Kagan"
 		},
@@ -87,7 +87,7 @@ app.controller("scotusController", ["$scope", "$sce", "$http", function($scope, 
 			},			
 			{
 				name: "AMKennedy",
-				lean: "independent",
+				lean: "conservative",
 				formatted_name: "Kennedy"
 			},
 			{

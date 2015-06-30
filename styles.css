@@ -1,12 +1,31 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300);
 
 body {
 	font-family: Roboto, sans-serif;
+	border-top: 2px solid #909090;
+	border-bottom: 1px solid #909090;
+	padding: 30px 0px 0px;
 }
 
 
+.intro {
+  margin-bottom: 15px;
+}
+
+.intro h1 {
+	margin: 0px 0px 5px;
+	  font-size: 18pt;
+}
+
+.intro h2 {
+	margin: 0px;
+  font-weight: 400;
+  font-size: 14pt;
+  max-width: 800px;
+}
+
 .explainer {
-	font-size: 16pt;
+	font-size: 14pt;
 	margin-bottom: 10px;
 	font-weight: 300;
 }
@@ -19,11 +38,11 @@ body {
   float: left;
   font-size: 7pt;
   line-height: 13px;
-  color: #999;
+  color: #222;
   border-radius: 3px;
   margin: 0px 2px 0px 0px;
   height: 13px;
-  border: 1px solid #ccc;
+  border: 1px solid #222;
   cursor: default;
 	text-align: center;
   width: 30px;
@@ -34,13 +53,13 @@ body {
 	height: 15px;
 	margin-right:2px;
 	margin-bottom:2px;
-	background-color: #C7DCE9;
+	background-color: #dadada;
 	display: block;
 	float:left;
 }
 
 	.case.selected a {
-		background-color: #77B5E3;
+		background-color: #404040;
 	}
 
 .justices {
@@ -48,7 +67,7 @@ body {
 	border: 1px solid #ccc;
 	display: block;
 	padding: 15px;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 	
 .bucket {
@@ -174,15 +193,47 @@ ul[dnd-list] > li {
 	margin-bottom: 10px;
 	font-weight: 400;
 	color: #aaa;
+	min-height:30px;
 }
+
+.little {
+	color: #999;
+  font-size: 9pt;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.little .conservative, .little .liberal {
+	color: rgba(255,255,255,.95);
+	padding: 0px 5px;
+}
+
+.little .conservative {
+	background-color: #E87E83;
+}
+
+.little .liberal {
+	background-color: #77B5E3;
+}
+
 
 @media screen and (max-width: 1105px) {
 	.justice {
 		width: 50px;
+		display:block;
+		float: left;
 	}
+	
+	li.dndPlaceholder {
+		display: block;
+		float: left;
+	}
+	
 	
 	.bucket {
 		min-width: 75px;
-		height: 120px;
+		height: auto;
 	}
+	
+	
 }
